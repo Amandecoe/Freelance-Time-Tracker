@@ -4,6 +4,7 @@ from .models import Project
 from .serializers import ProjectSerializer
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 # Create your views here.
 
 User = get_user_model()
@@ -38,3 +39,12 @@ def update_project(request,pk):
         return Response("Project Updated Successfuly", updated_project.data)
     return Response("Required fields not filled") #if the updated project is missing some fields or is not valid
 
+@api_view(['GET'])
+def project_search(request):
+    query = request.query_params.get("query")
+    if not query:
+        return Response("Nothing Found Under That Name")
+    
+    projects = Project.objects.filter(Q(name__iscontains=query) | Q(description__iscontains=query)) #Q is a django built in feature that allows you to search
+    searched_product = ProjectSerializer(projects, many = True) #can return many products that match the result
+    return Response(searched_product.data)
