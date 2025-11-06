@@ -29,7 +29,12 @@ def add_project(request):
 def update_project(request,pk):
     try:
         project = Project.objects.get(pk = pk)
-    except: Project.DoesnotExist:
-        return Response("Project Doesn't Exist")
-    serializer = ProjectSerializer(project, data=request.data)
-    if serializer.is_valid():
+    except Project.DoesnotExist():
+        return Response("Project Doesn't Exist")  #checks if the project exists and continues if it does but doesn't continue if the project doesn't exist
+    
+    updated_project = ProjectSerializer(project, data=request.data)
+    if updated_project.is_valid(): #checks if the updated project consists of all the required fields of a project
+        updated_project.save()
+        return Response("Project Updated Successfuly", updated_project.data)
+    return Response("Required fields not filled") #if the updated project is missing some fields or is not valid
+
