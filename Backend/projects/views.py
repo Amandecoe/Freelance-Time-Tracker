@@ -8,7 +8,17 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 @api_view(["GET"])
-def List_Project(request):
+def List_Projects(request):
     project = Project.object.filter(user = request.user)
     serialzier = ProjectSerializer(project)
     return Response(serialzier.data)
+
+@api_view('[POST]')
+def add_project(request):
+   name = request.data.get("name")
+   description = request.data.get("description")
+   newproject = ProjectSerializer(data=request.data) #accepts all the data sent by the user to create a new project
+   if newproject.is_valid(): #checks if all the input data from the user matches the one's required to create a new project
+       newproject.save() #saves the new project
+   if Project.objects.filter(name=name,description=description).exists():
+       return Response("Project already exists")    
