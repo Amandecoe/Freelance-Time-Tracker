@@ -48,3 +48,8 @@ def project_search(request):
     projects = Project.objects.filter(Q(name__iscontains=query) | Q(description__iscontains=query)) #Q is a django built in feature that allows you to search
     searched_product = ProjectSerializer(projects, many = True) #can return many products that match the result
     return Response(searched_product.data)
+
+@api_view(['DELETE'])
+def project_delete(request, pk):
+    deleted_project = Project.objects.get(id = pk)
+    deleted_project.delete()
