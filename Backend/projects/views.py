@@ -5,7 +5,7 @@ from .serializers import ProjectSerializer
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-# Create your views here.
+
 
 User = get_user_model()
 
