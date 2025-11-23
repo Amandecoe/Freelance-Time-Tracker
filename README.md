@@ -1,2 +1,2 @@
 # Freelance Time Tracker
-# Starting
+# Starting soon
