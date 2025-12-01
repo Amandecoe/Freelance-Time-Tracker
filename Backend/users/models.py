@@ -2,4 +2,4 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    id = models.Model(primarykey = True)
+    id = models.DecimalField(primarykey = True)
