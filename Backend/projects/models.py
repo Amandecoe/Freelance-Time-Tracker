@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils.text import slugify
+from users.models import Freelancer
 # Create your models here.
 
 class Project(models.Model):
     id = models.DecimalField(primary_key=True, unique=True)
+    freelancer = models.ForeignKey(Freelancer, on_delete = models.CASCADE)
     name = models.CharField(max_length=15)
     slug = models.SlugField(unique=True, blank=True, null=True)
     client_name = models.CharField(max_length=15)
@@ -14,7 +16,7 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     def save(self, *args, **kwargs):  #slugifies the name and then saves it in the db in a unique_slug table
         if not self.slug:
             self.slug = slugify(self.name)
@@ -24,4 +26,9 @@ class Project(models.Model):
                 unique_slug = f'{self.slug}-{counter}'
                 counter += 1
             self.slug = unique_slug
-        super().save(*args, **kwargs) 
+        super().save(*args, **kwargs)
+    class Status(models.TextChoices):
+        ACTIVE = 'active', 'Active'
+        PAUSED = 'paused', 'Paused'
+        COMPLETED = 'completed', 'Completed'
+    Status = models.CharField(max_length=30, choices=Status.choices, default = Status.PAUSED)
