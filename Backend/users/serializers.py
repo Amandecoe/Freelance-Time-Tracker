@@ -4,4 +4,4 @@ from .models import Freelancer
 class FreelancerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Freelancer
-        fields = {"user", "bio", "skills"}
+        fields = "__all__"
