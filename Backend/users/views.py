@@ -4,6 +4,7 @@ from .models import Freelancer
 from .serializers import FreelancerSerializer
 from rest_framework.decorators import api_view
 from .forms import UserRegisterForm, ProfileForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 @api_view(['POST']) #accepts POST requests
@@ -16,3 +17,8 @@ def create_account(request):
         # which allows us to attach the use to a profile before saving
         profile.user = user  #links the profile to a newly created user via the OnetoOneField
         profile.save() #saves the profile in the database
+
+
+
+
+
