@@ -36,5 +36,9 @@ def login(request):
     else:
         return JsonResponse({"success":False, "message":"Invalid Credentials"}, status = 401)
 
+@api_view(['POST'])
+def logout(request):
+    logout(request) #doesn't need the user because it works by accessing the current user session's data that is created when user logged in
+    return JsonResponse({"success":True, "message": "User have been Logged Out!"}, status=200)
 
 
