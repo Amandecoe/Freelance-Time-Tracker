@@ -5,7 +5,7 @@ from .serializers import FreelancerSerializer
 from rest_framework.decorators import api_view
 from .forms import UserRegisterForm, ProfileForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 import json
 # Create your views here.
