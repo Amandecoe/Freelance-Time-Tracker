@@ -4,13 +4,13 @@ from users.models import Freelancer
 # Create your models here.
 
 class Project(models.Model):
-    id = models.DecimalField(primary_key=True, unique=True)
+    id = models.DecimalField(primary_key=True, unique=True, decimal_places=2, max_digits=10)
     freelancer = models.ForeignKey(Freelancer, on_delete = models.CASCADE)
     name = models.CharField(max_length=15)
     slug = models.SlugField(unique=True, blank=True, null=True)
     client_name = models.CharField(max_length=15)
     description = models.TextField()
-    hourly_rate = models.DecimalField(decimal_places=2)
+    hourly_rate = models.DecimalField(decimal_places=2, max_digits=5)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

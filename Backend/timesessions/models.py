@@ -4,7 +4,7 @@ from users.models import Freelancer
 from datetime import timedelta
 # Create your models here.
 class Timelog(models.Model):
-    id = models.DecimalField(primary_key=True)
+    id = models.DecimalField(primary_key=True, decimal_places=2, max_digits=10)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
     notes = models.TextField(blank=True)
